@@ -12,6 +12,7 @@ export default function App() {
 
   const [trending, setTrending] = useState('all');
   const [results, setResults] = useState(null);
+  const [genero, setGenero] = useState(null);
 
 
   const obtenerTrending = async () => {
@@ -27,11 +28,31 @@ export default function App() {
     }, []
   );
 
+  const seleccionarTipo = async (tipo) => {
+    const response = await fetch(`${API_URL}/trending/${tipo}/day`, optionsFetch);
+    const data = await response.json();
+    console.log(data);
+    setResults(data);
+    setTrending(tipo);
+  }
+
+  const styleButtoon = (trendingActual) => {
+    return trending == trendingActual ?  
+    { backgroundColor: 'orange' } 
+    : 
+    { backgroundColor: 'black', color: 'white'}
+
+  }
+
   return (
     <div>
       <Barra />
       <Favoritos />
-      
+      <div>
+        <button style={styleButtoon('all')} onClick={() => seleccionarTipo('all')}>Todos</button>
+        <button style={styleButtoon('tv')} onClick={() => seleccionarTipo('tv')}>Tv</button>
+        <button style={styleButtoon('movie')} onClick={() => seleccionarTipo('movie')}>Peliculas</button>
+      </div>
       <div>
         {
           results ?
