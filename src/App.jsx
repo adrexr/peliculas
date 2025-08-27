@@ -28,6 +28,15 @@ export default function App() {
     }, []
   );
 
+  const buscarPelicula = (palabra) => {
+    const peliculasBuscadas = results.filter(
+      (pelicula) =>  pelicula.title.toLowerCase() || 
+      pelicula.name.toLowerCase() == palabra.toLowerCase()
+    
+    );
+    console.log(peliculasBuscadas);
+    setResults(peliculasBuscadas);
+  }
   const seleccionarTipo = async (tipo) => {
     const response = await fetch(`${API_URL}/trending/${tipo}/day`, optionsFetch);
     const data = await response.json();
@@ -48,15 +57,17 @@ export default function App() {
     <div>
       <Barra />
       <Favoritos />
-      <div>
-        <button style={styleButtoon('all')} onClick={() => seleccionarTipo('all')}>Todos</button>
-        <button style={styleButtoon('tv')} onClick={() => seleccionarTipo('tv')}>Tv</button>
-        <button style={styleButtoon('movie')} onClick={() => seleccionarTipo('movie')}>Peliculas</button>
+      <div className="botones">
+        <button className="buton" style={styleButtoon('all')} onClick={() => seleccionarTipo('all')}>Todos</button>
+        <button className="buton" style={styleButtoon('tv')} onClick={() => seleccionarTipo('tv')}>Tv</button>
+        <button className="buton" style={styleButtoon('movie')} onClick={() => seleccionarTipo('movie')}>Peliculas</button>
       </div>
       <div>
         {
           results ?
             (
+              results &&
+              results.results &&
               results.results.map(
                 (peli) => (
                   <Carta props={peli} />
