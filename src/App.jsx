@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { API_URL, IMAGE_URL, optionsFetch } from "./utils/constants";
 import './App.css'
+import Carta from "./components/card/card";
+import Barra from "./components/barra/barra";
+import Favoritos from "./components/favoritos/favoritos";
 
 
 
@@ -26,20 +29,25 @@ export default function App() {
 
   return (
     <div>
-      {
-        results ?
-          (
-            results.results.map(
-              (peli) => (
-                
+      <Barra />
+      <Favoritos />
+      
+      <div>
+        {
+          results ?
+            (
+              results.results.map(
+                (peli) => (
+                  <Carta props={peli} />
+                )
               )
             )
-          )
-          :
-          (
-            <h2>No hay resultados.</h2>
-          )
-      }
+            :
+            (
+              <h2>No hay resultados.</h2>
+            )
+        }
+      </div>
     </div>
   )
 }

@@ -1,0 +1,20 @@
+.nara{
+    background-color: #FF8E04;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+.ne{
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: black;
+    color: white;
+}
+.favoritos{
+    gap:10px;
+    display: flex;
+    margin-block: 30px;
+    margin-left: 3%;
+}

@@ -1,8 +1,13 @@
- export default function Carta (){
- return (
-  <div className="card" >
-                  <img src={`${IMAGE_URL}${peli.poster_path}`} alt="" />
-                  <h3>{peli.title ? peli.title : peli.name}</h3>
-                </div>
- )
- }
+import { IMAGE_URL } from '../../utils/constants';
+import './card.css'
+
+
+export default function Carta({ props }) {
+  const { title, poster_path, name } = props;
+  return (
+    <div className="card" >
+      <img src={`${IMAGE_URL}${poster_path}`} alt="" />
+      <h3>{title ? title : name}</h3>
+    </div>
+  )
+}
