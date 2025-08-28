@@ -5,6 +5,7 @@ import './App.css'
 import Carta from "./components/card/card";
 import Barra from "./components/barra/barra";
 import Favoritos from "./components/favoritos/favoritos";
+import Botones from "./components/botonesa/botones";
 
 
 
@@ -13,23 +14,53 @@ export default function App() {
   const [trending, setTrending] = useState('all');
   const [results, setResults] = useState(null);
   const [genero, setGenero] = useState(null);
+  const [originalResults, setOriginalResults] = useState(null);
+  const [pagina, setPagina] = useState(1);
+
+  const aumentarPagina = () => {
+    setPagina(pagina + 1);
+  }
+  const disminuirPagina = () => {
+      setPagina(pagina - 1);
+    }
+  
 
 
   const obtenerTrending = async () => {
-    const response = await fetch(`${API_URL}/trending/${trending}/day`, optionsFetch);
+    const response = await fetch(`${API_URL}/trending/${trending}/day?page=${pagina}`, optionsFetch);
     const data = await response.json();
     console.log(data);
     setResults(data);
+    setOriginalResults(data);
   }
+
+  const buscarPeliculaLocal = (palabra) => {
+    if (!palabra.trim()) {
+      setResults(originalResults);
+      return;
+    }
+
+  const peliculasBuscadas = originalResults.results.filter(
+    (pelicula) => {
+      const titulo = pelicula.title || pelicula.name || '';
+      return titulo.toLowerCase().includes(palabra.toLowerCase());
+    }
+  );
+
+  console.log(peliculasBuscadas);
+  setResults({ ...originalResults, results:
+  peliculasBuscadas });
+}
+
 
   useEffect(
     () => {
       obtenerTrending();
-    }, []
+    }, [pagina, trending]
   );
 
   const buscarPelicula = (palabra) => {
-    const peliculasBuscadas = results.filter(
+    const peliculasBuscadas = results.results.filter(
       (pelicula) =>  pelicula.title.toLowerCase() || 
       pelicula.name.toLowerCase() == palabra.toLowerCase()
     
@@ -55,13 +86,17 @@ export default function App() {
 
   return (
     <div>
-      <Barra />
+      <Barra busqueda={buscarPeliculaLocal} />
       <Favoritos />
-      <div className="botones">
+      <div className="botonesTipo">
         <button className="buton" style={styleButtoon('all')} onClick={() => seleccionarTipo('all')}>Todos</button>
         <button className="buton" style={styleButtoon('tv')} onClick={() => seleccionarTipo('tv')}>Tv</button>
         <button className="buton" style={styleButtoon('movie')} onClick={() => seleccionarTipo('movie')}>Peliculas</button>
       </div>
+      <Botones 
+        clickAnterior={disminuirPagina} 
+        clickSiguiente={aumentarPagina}
+      />
       <div>
         {
           results ?

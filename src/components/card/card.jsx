@@ -1,4 +1,5 @@
 import { IMAGE_URL } from '../../utils/constants';
+import StarRating from '../estrellas/estrellas';
 import './card.css'
 
 
@@ -7,7 +8,8 @@ export default function Carta({ props }) {
   return (
     <div className="card" >
       <img src={`${IMAGE_URL}${poster_path}`} alt="" />
-      <h3>{title ? title : name}</h3>
+      <h3>{props.title ? title : name}</h3>
+      <StarRating rating={props.vote_average} />
     </div>
   )
 }

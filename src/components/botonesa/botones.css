@@ -1,0 +1,26 @@
+.botones{
+    justify-content: center;
+    display: flex;
+    
+}
+.butonn{
+    margin-block: 10px;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    cursor: pointer;
+    background-color: #FF8E04;
+    z-index: (1);
+    position: absolute;
+    margin-right: 11%;
+    
+}
+.butonnn{
+    margin-block: 10px;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
