@@ -1,13 +1,16 @@
 import './favoritos.css'
 
-
-export default function Favoritos  (){
-return (
-  <div className="favoritos">
-      <button className="nara">Populares</button>
-      <button className='ne'>accion</button>
-      <button className='ne'>terror</button>
-      <button className='ne'>Comedia</button>
-  </div>
-)
+export default function Favoritos({ generos, selecccionarGenero, generoo }) {
+  return (
+    <div className="favoritos">
+      {
+        generos && generos.map((genero) => (
+          <button key={genero.id} className={generoo == genero.id? 'nara' : 'ne'} onClick={() => selecccionarGenero(genero.id)}
+          >
+            {genero.name}
+          </button>
+        ))
+      }
+    </div>
+  )
 }

@@ -1,9 +1,19 @@
 import './botones.css'
 
-export default function Botones({clickAnterior, clickSiguiente}) {
+export default function Botones({clickAnterior, clickSiguiente, pagina}) {
 return (
     <div className="botones">
-        <button onClick={clickAnterior} className="butonn">anterior</button>
+        {
+            pagina > 1 ?
+            (
+                <button onClick={clickAnterior} className="butonn">anterior</button>
+            )
+            :
+            (
+                null
+            )
+        }   
+        
         <button onClick={clickSiguiente} className="butonnn">siguiente</button>
     </div>
 )
